@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
+import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
-/*import "react-pro-sidebar/dist/css/styles.css";*/
+import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
@@ -35,9 +35,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   );
 };
 
-
-
-const Sidebarr = () => {
+const Sidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -63,7 +61,7 @@ const Sidebarr = () => {
         },
       }}
     >
-      <Sidebar collapsed={isCollapsed}>
+      <ProSidebar collapsed={isCollapsed}>
         <Menu iconShape="square">
           {/* LOGO AND MENU ICON */}
           <MenuItem
@@ -82,7 +80,7 @@ const Sidebarr = () => {
                 ml="15px"
               >
                 <Typography variant="h3" color={colors.grey[100]}>
-                  ALX FINAL PROJECT
+                  E-DASH
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -112,7 +110,7 @@ const Sidebarr = () => {
                   ALX Team
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  Cohort 10 Admin
+                  Cohort 10 Backend Team
                 </Typography>
               </Box>
             </Box>
@@ -222,9 +220,9 @@ const Sidebarr = () => {
             />
           </Box>
         </Menu>
-      </Sidebar>
+      </ProSidebar>
     </Box>
   );
 };
 
-export default Sidebarr;
+export default Sidebar;
