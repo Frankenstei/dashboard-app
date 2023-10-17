@@ -1,0 +1,3 @@
+These are the basic requirments for this API to work
+pip insatall Django
+pip insatall djangorestframework

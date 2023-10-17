@@ -1,0 +1,159 @@
+Listing all team members:
+curl -X GET http://35.208.109.101/teams/
+
+Example response:
+[
+    {
+        "id": 1,
+        "name": "Jane Doe",
+        "email": "janedoe@gmail.com",
+        "age": 35,
+        "phone": "(234)812-454-4545",
+        "access": "admin"
+    },
+    // More Team members...
+]
+
+Creating new team member:
+curl -X POST -H "Content-Type: application/json" -d '{
+    "name": "Harvey Roxie",
+    "email": "harveyroxie@gmail.com",
+    "age": "65",
+    "phone": "(444)555-6239",
+    "access": "admin"
+}' http://35.208.109.101/teams/
+
+
+Example response:
+{
+    "id": 2,  // ID of the newly created Team member
+    "name": "John Smith",
+    "email": "johnsmith@gmail.com",
+    "age": 28,
+    "phone": "(123)456-7890",
+    "access": "user"
+}
+
+
+Retriving team member by id:
+curl -X GET http://35.208.109.101/teams/1/
+
+Example response:
+{
+    "id": 1,
+    "name": "Jane Doe",
+    "email": "janedoe@gmail.com",
+    "age": 35,
+    "phone": "(234)812-454-4545",
+    "access": "admin"
+}
+
+
+Updating a Team Member (PUT or PATCH Request):
+
+Example Request to Update (Using curl):
+curl -X PUT -H "Content-Type: application/json" -d '{
+    "name": "Updated Name",
+    "age": 30
+}' http://35.208.109.101/teams/1/
+
+Example Request to Partially Update (Using curl):
+curl -X PATCH -H "Content-Type: application/json" -d '{
+    "age": 31
+}' http://35.208.109.101/teams/1/
+
+
+Example Response (JSON format):
+{
+    "id": 1,
+    "name": "Updated Name",
+    "email": "janedoe@gmail.com",
+    "age": 30,  // Updated age
+    "phone": "(234)812-454-4545",
+    "access": "admin"
+}
+
+
+
+Deleting a Team Member (DELETE Request):
+curl -X DELETE http://35.208.109.101/teams/1/
+
+Example Response (Status Code 204, indicating successful deletion)
+
+
+List and create customer contacts
+curl -X GET http://35.208.109.101/customer-contacts/
+
+curl -X POST http://35.208.109.101/customer-contacts/ -H "Content-Type: application/json" -d '{
+  "name": "John Doe",
+  "email": "johndoe@example.com",
+  "age": 30,
+  "phone": "(555) 123-4567",
+  "address": "123 Main St",
+  "city": "New York",
+  "zipCode": "10001",
+  "registrarId": 123456
+}'
+
+To retrive a particular contact 
+curl -X GET http://35.208.109.101/customer-contacts/{contact_id}/
+
+to update customer contat 
+curl -X PUT http://35.208.109.101/customer-contacts/{contact_id}/ -H "Content-Type: application/json" -d '{
+  "name": "Updated Name",
+  "age": 35
+}'
+
+To delete contact
+curl -X DELETE http://35.208.109.101/customer-contacts/{contact_id}/
+
+get request to list all invoicies 
+curl -X GET http://35.208.109.101/invoices/
+
+post request to create new invoices
+curl -X POST http://35.208.109.101/invoices/ -H "Content-Type: application/json" -d '{
+  "name": "Invoice 001",
+  "email": "invoice@example.com",
+  "cost": "21.24",
+  "date": "03/12/2022",
+  "phone": "(555) 123-4567"
+}'
+
+Get invoice by ID
+curl -X GET http://35.208.109.101/invoices/{invoice_id}/
+
+Put request to update invoice by ID
+curl -X PUT http://35.208.109.101/invoices/{invoice_id}/ -H "Content-Type: application/json" -d '{
+  "name": "Updated Invoice",
+  "cost": "25.00"
+}'
+
+To delete invoice by ID
+curl -X DELETE http://35.208.109.101/invoices/{invoice_id}/
+
+
+
+get request to list all transactions 
+curl -X GET http://35.208.109.101/transactions/
+
+post request to create new transactions
+curl -X POST http://35.208.109.101/transactions/ -H "Content-Type: application/json" -d '{
+  "txId": "01e4dsa",
+  "user": "johndoe",
+  "date": "2021-09-01",
+  "cost": "43.95",
+}'
+
+Get invoice by ID
+curl -X GET http://35.208.109.101/transactions/{transaction_id}/
+
+Put request to update invoice by ID
+curl -X PUT http://35.208.109.101/transactions/{transaction_id}/ -H "Content-Type: application/json" -d '{
+  "user": "joewee",
+  "cost": "20.00"
+}'
+
+To delete transactions by ID
+curl -X DELETE http://35.208.109.101/transactions/{transaction_id}/
+
+
