@@ -1,13 +1,38 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Button, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataTeam } from "../../data/mockData";
+import { api } from "../../data/api.js";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
+import IconButton from "@mui/material/IconButton";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import Header from "../../components/Header";
+import { useState, useEffect } from 'react';
+import axios from "axios";
 
 const Team = () => {
+
+  const [teams, setTeam] = useState([]);
+
+
+  useEffect(()=>{
+    fetch('http://35.208.109.101/teams')
+    .then(response=>response.json())
+    .then(data=>setTeam(data))
+    .catch(error=>console.error('Error fetching team data:', error));
+  }, []);
+
+  const editFunction = () => {
+    console.log("edit")
+  }
+
+  const deleteFunction = () => {
+    console.log("delete");
+  }
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
@@ -66,6 +91,38 @@ const Team = () => {
         );
       },
     },
+    {
+      field: "edit",
+      headerName: "Edit",
+      sortable: false,
+      flex: 1,
+      renderCell: (params) => {
+        return (
+          <IconButton aria-label="edit"
+          variant = "contained" color="gray"
+          onClick = {editFunction}
+          >
+            <EditIcon />
+          </IconButton>
+        )
+      }
+    },
+    {
+      field: "delete",
+      headerName: "Delete",
+      sortable: false,
+      flex: 1,
+      renderCell: (params) => {
+        return (
+          <IconButton aria-label="delete"
+          variant = "contained" color="red"
+          onClick = {deleteFunction}
+          >
+            <DeleteIcon />
+          </IconButton>
+        )
+      }
+    }
   ];
 
   return (
@@ -100,7 +157,7 @@ const Team = () => {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={mockDataTeam} columns={columns} />
+        <DataGrid rows={teams} columns={columns} />
       </Box>
     </Box>
   );

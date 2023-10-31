@@ -3,12 +3,35 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
+import { useEffect } from 'react';
+import axios  from 'axios';
 
 const Form = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
+  //const addUser = (formData) => {
+    //console.log(JSON.stringify(formData))
+  //}
+
+  
+
   const handleFormSubmit = (values) => {
-    console.log(values);
+    axios.post("http://35.208.109.101/customer-contacts/", {
+      name: values.name,
+      email: values.email,
+      age: values.age,
+      phone: values.phone,
+      city: values.city,
+      address: values.address,
+      zipCode: values.zipCode,
+      registrarId: values.registrarId,
+    }).
+    then(res => {
+      console.log(res)
+    }).
+    catch(error => {
+      console.log(error.response.data)
+    })
   };
 
   return (
@@ -41,26 +64,13 @@ const Form = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="First Name"
+                label="Name"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.firstName}
-                name="firstName"
-                error={!!touched.firstName && !!errors.firstName}
-                helperText={touched.firstName && errors.firstName}
-                sx={{ gridColumn: "span 2" }}
-              />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Last Name"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.lastName}
-                name="lastName"
-                error={!!touched.lastName && !!errors.lastName}
-                helperText={touched.lastName && errors.lastName}
+                value={values.name}
+                name="name"
+                error={!!touched.name && !!errors.name}
+                helperText={touched.name && errors.name}
                 sx={{ gridColumn: "span 2" }}
               />
               <TextField
@@ -74,6 +84,19 @@ const Form = () => {
                 name="email"
                 error={!!touched.email && !!errors.email}
                 helperText={touched.email && errors.email}
+                sx={{ gridColumn: "span 2" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Age"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.age}
+                name="age"
+                error={!!touched.age && !!errors.age}
+                helperText={touched.age && errors.age}
                 sx={{ gridColumn: "span 4" }}
               />
               <TextField
@@ -83,36 +106,62 @@ const Form = () => {
                 label="Contact Number"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.contact}
-                name="contact"
-                error={!!touched.contact && !!errors.contact}
-                helperText={touched.contact && errors.contact}
+                value={values.phone}
+                name="phone"
+                error={!!touched.phone && !!errors.phone}
+                helperText={touched.phone && errors.phone}
                 sx={{ gridColumn: "span 4" }}
               />
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Address 1"
+                label="Address"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.address1}
-                name="address1"
-                error={!!touched.address1 && !!errors.address1}
-                helperText={touched.address1 && errors.address1}
+                value={values.address}
+                name="address"
+                error={!!touched.address && !!errors.address}
+                helperText={touched.address && errors.address}
                 sx={{ gridColumn: "span 4" }}
               />
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Address 2"
+                label="City"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.address2}
-                name="address2"
-                error={!!touched.address2 && !!errors.address2}
-                helperText={touched.address2 && errors.address2}
+                value={values.city}
+                name="city"
+                error={!!touched.city && !!errors.city}
+                helperText={touched.city && errors.city}
+                sx={{ gridColumn: "span 4" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Zip Code"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.zipCode}
+                name="zipCode"
+                error={!!touched.zipCode && !!errors.zipCode}
+                helperText={touched.zipCode && errors.zipCode}
+                sx={{ gridColumn: "span 4" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Registrar Id"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.registrarId}
+                name="registrarId"
+                error={!!touched.registrarId && !!errors.registrarId}
+                helperText={touched.registrarId && errors.registrarId}
                 sx={{ gridColumn: "span 4" }}
               />
             </Box>
@@ -132,23 +181,27 @@ const phoneRegExp =
   /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
 const checkoutSchema = yup.object().shape({
-  firstName: yup.string().required("required"),
-  lastName: yup.string().required("required"),
+  name: yup.string().required("required"),
   email: yup.string().email("invalid email").required("required"),
-  contact: yup
+  age: yup.string().required("required"),
+  phone: yup
     .string()
     .matches(phoneRegExp, "Phone number is not valid")
     .required("required"),
-  address1: yup.string().required("required"),
-  address2: yup.string().required("required"),
+  address: yup.string().required("required"),
+  city: yup.string().required("required"),
+  zipCode: yup.string().required("required"),
+  registrarId: yup.string().required("required"),
 });
 const initialValues = {
-  firstName: "",
-  lastName: "",
+  name: "",
   email: "",
-  contact: "",
-  address1: "",
-  address2: "",
+  age: "",
+  phone: "",
+  address: "",
+  city: "",
+  zipCode: "",
+  registrarId: "",
 };
 
 export default Form;

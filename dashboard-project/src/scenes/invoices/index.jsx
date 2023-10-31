@@ -3,8 +3,19 @@ import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataInvoices } from "../../data/mockData";
 import Header from "../../components/Header";
+import { useState, useEffect } from 'react';
 
 const Invoices = () => {
+
+  const [invoices, setInvoice] = useState([]);
+
+  useEffect(()=>{
+    fetch('http://35.208.109.101/invoices')
+    .then(response=>response.json())
+    .then(data=>setInvoice(data))
+    .catch(error=>console.error('Error fetching Invoice data:', error));
+  }, []);
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
@@ -74,7 +85,7 @@ const Invoices = () => {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={mockDataInvoices} columns={columns} />
+        <DataGrid checkboxSelection rows={invoices} columns={columns} />
       </Box>
     </Box>
   );

@@ -4,8 +4,18 @@ import { tokens } from "../../theme";
 import { mockDataContacts } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
+import { useState, useEffect } from 'react';
 
 const Contacts = () => {
+  const [customer_contacts, setContacts] = useState([]);
+
+  useEffect(()=>{
+    fetch('http://35.208.109.101/customer-contacts')
+    .then(response=>response.json())
+    .then(data=>setContacts(data))
+    .catch(error=>console.error('Error fetching contacts data:', error));
+  }, []);
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -91,7 +101,7 @@ const Contacts = () => {
         }}
       >
         <DataGrid
-          rows={mockDataContacts}
+          rows={customer_contacts}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
         />
