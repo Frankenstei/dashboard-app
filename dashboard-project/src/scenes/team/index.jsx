@@ -17,7 +17,6 @@ const Team = () => {
 
   const [teams, setTeam] = useState([]);
 
-
   useEffect(()=>{
     fetch('http://35.208.109.101/teams')
     .then(response=>response.json())
@@ -30,7 +29,7 @@ const Team = () => {
   }
 
   const deleteFunction = () => {
-    console.log("delete");
+    console.log("delete")
   }
 
   const theme = useTheme();
@@ -42,6 +41,7 @@ const Team = () => {
       headerName: "Name",
       flex: 1,
       cellClassName: "name-column--cell",
+      editable: true,
     },
     {
       field: "age",
@@ -49,16 +49,19 @@ const Team = () => {
       type: "number",
       headerAlign: "left",
       align: "left",
+      editable: true,
     },
     {
       field: "phone",
       headerName: "Phone Number",
       flex: 1,
+      editable: true,
     },
     {
       field: "email",
       headerName: "Email",
       flex: 1,
+      editable: true,
     },
     {
       field: "accessLevel",
@@ -157,7 +160,7 @@ const Team = () => {
           },
         }}
       >
-        <DataGrid rows={teams} columns={columns} />
+        <DataGrid rows={teams} columns={columns} processRowUpdate={(updatedRow, originalRow) => console.log(updatedRow)} disableRowSelectionOnClick />
       </Box>
     </Box>
   );
